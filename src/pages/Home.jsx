@@ -2,8 +2,10 @@
 
 const Home = () => {
   return (
-    <div>
-        <h3>Hello I am home</h3>
+    <div className=" my-5 bg-">
+        <h3 className="text-5xl font-heading font-bold">Hello I am home</h3>
+        
+        
     </div>
   )
 }
