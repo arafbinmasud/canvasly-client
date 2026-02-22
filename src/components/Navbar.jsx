@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaMoon } from "react-icons/fa";
 import { IoSunny } from "react-icons/io5";
+import { Link } from "react-router";
 
 // import { Link } from "react-router";
 
@@ -31,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-base-100 border-b-2 border-primary sticky top-0 z-10 shadow-sm">
+    <header className="bg-base-100 border-b border-primary/50 sticky top-0 z-10 shadow-md">
       <nav className="flex items-center justify-between max-w-350 mx-auto py-2 px-2">
         
         <div className=" flex items-center">
@@ -55,7 +56,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 font-text"
             >
             {links}
             </ul>
@@ -67,13 +68,13 @@ const Navbar = () => {
           </p>
 
           
-          <ul className="menu menu-horizontal px-1 hidden lg:flex ml-6">
+          <ul className="menu menu-horizontal px-1 hidden lg:flex ml-6 font-text">
             {links}
           </ul>
         </div>
 
         
-        <div className="">
+        <div>
           <div className="flex items-center justify-center gap-3">
             <button onClick={toggleTheme} className="btn btn-ghost btn-circle">
               {theme === "light" ? (
@@ -83,13 +84,13 @@ const Navbar = () => {
               )}
             </button>
 
-            <div className="flex gap-3 items-center justify-center">
-              <button className="btn btn-sm md:btn-md btn-outline rounded-full">
+            <div className="flex gap-3 items-center justify-center font-text">
+              <Link to="/login" className="btn btn-sm md:btn-md btn-outline rounded-full">
                 Log In
-              </button>
-              <button className="btn btn-sm md:btn-md btn-primary text-accent rounded-full">
+              </Link>
+              <Link to="/register" className="btn btn-sm md:btn-md btn-primary text-accent rounded-full">
                 Register
-              </button>
+              </Link>
             </div>
           </div>
         </div>
