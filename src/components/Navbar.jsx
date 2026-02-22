@@ -31,8 +31,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-base-100 border-b-2 border-primary sticky top-0 z-10 shadow-sm">
-      <div className="flex items-center justify-between max-w-350 mx-auto py-2">
+    <header className="bg-base-100 border-b-2 border-primary sticky top-0 z-10 shadow-sm">
+      <nav className="flex items-center justify-between max-w-350 mx-auto py-2 px-2">
         
         <div className=" flex items-center">
           
@@ -93,8 +93,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };
 
