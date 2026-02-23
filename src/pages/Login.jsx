@@ -1,15 +1,41 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import photo_login from "../assets/login-photo1.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { loginUser, createUserWithGoogle } = useAuth();
+  const navigate = useNavigate();
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+
+    loginUser(email, password)
+      .then((res) => {
+        console.log(res.user);
+        navigate("/");
+      })
+      .catch((err) => toast.error(err.message));
+  };
+
+  const handleGoogleLogin = () => {
+    console.log("clicked");
+    createUserWithGoogle()
+      .then((res) => {
+        console.log(res.user);
+        navigate("/");
+      })
+      .catch((err) => toast.error(err.message));
+  };
   return (
     <section className="flex flex-col md:flex-row">
-
       <div className="left md:w-1/2 flex justify-end items-center py-5">
         <div className="max-w-175 px-2 md:pr-15 font-text ">
           <p className="text-center  md:text-left text-lg font-medium mb-8 md:mb-10">
@@ -27,8 +53,12 @@ const Login = () => {
               Explore what’s new in the gallery
             </p>
 
-            <form className="flex flex-col">
-              <button className="my-10 border-2 flex items-center justify-center gap-3 px-6 py-3 rounded-full border-gray-400 hover:border-primary hover:bg-primary/5 cursor-pointer transition-all duration-300 ease-in-out font-semibold">
+            <form onSubmit={handleLogin} className="flex flex-col">
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="my-10 border-2 flex items-center justify-center gap-3 px-6 py-3 rounded-full border-gray-400 hover:border-primary hover:bg-primary/5 cursor-pointer transition-all duration-300 ease-in-out font-semibold active:scale-95"
+              >
                 <FcGoogle size={24} />
                 <span>Continue with Google</span>
               </button>
@@ -42,6 +72,7 @@ const Login = () => {
               {/* Email  */}
               <label className="mb-1 font-semibold opacity-80">Email</label>
               <input
+                name="email"
                 required
                 type="email"
                 placeholder="Your Email"
@@ -52,6 +83,7 @@ const Login = () => {
               <label className="mb-1 font-semibold opacity-80">Password</label>
               <div className="relative">
                 <input
+                  name="password"
                   required
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
@@ -80,20 +112,20 @@ const Login = () => {
           alt="Painting"
           className="object-cover h-full w-full"
         />
-         <div className="absolute inset-0 bg-linear-to-t from-black/90 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-black/90 to-transparent"></div>
 
-          <div className="absolute bottom-10 left-10 right-10 text-white">
-            <blockquote className="text-2xl font-italic font-light mb-4">
-              "The world is but a canvas to our imagination"
-            </blockquote>
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-primary border-2 border-white"></div>
-              <div>
-                <p className="font-bold">Henry David Thoreau</p>
-                <p className="text-sm opacity-80">Poet & Philosopher</p>
-              </div>
+        <div className="absolute bottom-10 left-10 right-10 text-white">
+          <blockquote className="text-2xl font-italic font-light mb-4">
+            "The world is but a canvas to our imagination"
+          </blockquote>
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-primary border-2 border-white"></div>
+            <div>
+              <p className="font-bold">Henry David Thoreau</p>
+              <p className="text-sm opacity-80">Poet & Philosopher</p>
             </div>
           </div>
+        </div>
       </div>
     </section>
   );

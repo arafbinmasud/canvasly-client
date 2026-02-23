@@ -1,9 +1,8 @@
-import useAuth from "../hooks/useAuth"
+
 
 
 const Home = () => {
-  const authInfo = useAuth();
-  console.log(authInfo);
+  
   
   
 
