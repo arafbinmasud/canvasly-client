@@ -8,21 +8,24 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { loginUser, createUserWithGoogle } = useAuth();
+  const { loginUser, createUserWithGoogle, setLoading } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    
 
     loginUser(email, password)
       .then((res) => {
         console.log(res.user);
         navigate("/");
       })
-      .catch((err) => toast.error(err.message));
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
   };
 
   const handleGoogleLogin = () => {
@@ -92,7 +95,7 @@ const Login = () => {
                 <button
                   onClick={() => setShowPassword(!showPassword)}
                   type="button"
-                  className="absolute top-4 right-5 opacity-50"
+                  className="absolute top-4 cursor-pointer hover:opacity-100 right-5 opacity-50"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>

@@ -10,9 +10,9 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passError, setPassError] = useState("");
   const [firebaseError, setFirebaseError] = useState("");
-  const { createUser, updateUser, user, createUserWithGoogle } = useAuth();
+  const { createUser, updateUser, createUserWithGoogle, setLoading } = useAuth();
   const navigate = useNavigate();
-  console.log(user);
+  
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -41,12 +41,17 @@ const Register = () => {
             toast.success(
               "Masterpiece account created! Welcome aboard, Artist. ✨",
             );
+            setLoading(false);
             navigate("/");
           })
-          .catch((err) => setFirebaseError(err.message));
+          .catch((err) => {
+            setFirebaseError(err.message);
+            setLoading(false);
+          });
       })
       .catch((err) => {
         setFirebaseError(err.message);
+        setLoading(false)
       });
   };
 
@@ -59,7 +64,10 @@ const Register = () => {
         );
         navigate("/");
       })
-      .catch((err) => setFirebaseError(err.message));
+      .catch((err) => {
+        setFirebaseError(err.message);
+        setLoading(false)
+      });
   };
 
   return (
@@ -139,7 +147,7 @@ const Register = () => {
                     setShowPassword(!showPassword);
                   }}
                   type="button"
-                  className="absolute top-4 right-5 cursor-pointer opacity-50"
+                  className="absolute hover:opacity-100 top-4 right-5 cursor-pointer opacity-50"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
