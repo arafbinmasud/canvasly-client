@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { FaMoon } from "react-icons/fa";
 import { IoSunny } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 // import { Link } from "react-router";
 
 const Navbar = () => {
 
   const links = <>
-    <li><a >Home</a></li>
+    <li><NavLink to="/" >Home</NavLink></li>
     <li><a >Explore Artworks</a></li>
     <li><a >Add Artwork</a></li>
     <li><a >My Gallery</a></li>
@@ -76,7 +76,7 @@ const Navbar = () => {
         
         <div>
           <div className="flex items-center justify-center gap-3">
-            <button onClick={toggleTheme} className="btn btn-ghost btn-circle">
+            <button onClick={toggleTheme} className="cursor-pointer btn-circle">
               {theme === "light" ? (
                 <FaMoon size={20}></FaMoon>
               ) : (
@@ -85,7 +85,7 @@ const Navbar = () => {
             </button>
 
             <div className="flex gap-3 items-center justify-center font-text">
-              <Link to="/login" className="btn btn-sm md:btn-md btn-outline rounded-full">
+              <Link to="/login" className="btn btn-sm md:btn-md btn-outline btn-primary rounded-full">
                 Log In
               </Link>
               <Link to="/register" className="btn btn-sm md:btn-md btn-primary text-accent rounded-full">

@@ -10,6 +10,7 @@
   font-family: "Plus Jakarta Sans", sans-serif;
 }
 
+
 @import "tailwindcss";
 @plugin "daisyui" {
   themes:

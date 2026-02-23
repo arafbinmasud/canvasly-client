@@ -1,11 +1,66 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import photo from "../assets/register_photo.webp";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [passError, setPassError] = useState("");
+  const [firebaseError, setFirebaseError] = useState("");
+  const { createUser, updateUser, user, createUserWithGoogle } = useAuth();
+  const navigate = useNavigate();
+  console.log(user);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const photo = e.target.photo.value;
+    const password = e.target.password.value;
+    const userInfo = { displayName: name, photoURL: photo };
+
+    setPassError("");
+    setFirebaseError("");
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+      setPassError(
+        "Every canvas needs a strong foundation. Ensure your password meets the criteria below!",
+      );
+      return;
+    }
+
+    createUser(email, password)
+      .then(() => {
+        updateUser(userInfo)
+          .then(() => {
+            toast.success(
+              "Masterpiece account created! Welcome aboard, Artist. ✨",
+            );
+            navigate("/");
+          })
+          .catch((err) => setFirebaseError(err.message));
+      })
+      .catch((err) => {
+        setFirebaseError(err.message);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    setFirebaseError("");
+    createUserWithGoogle()
+      .then(() => {
+        toast.success(
+          "Masterpiece account created! Welcome aboard, Artist. ✨",
+        );
+        navigate("/");
+      })
+      .catch((err) => setFirebaseError(err.message));
+  };
 
   return (
     <section className="my-5 w-full max-w-350 mx-auto font-text">
@@ -26,13 +81,16 @@ const Register = () => {
               Community of dreamers and creators
             </p>
 
-            <form className="flex flex-col">
-              <button className="my-10 border-2 flex items-center justify-center gap-3 px-6 py-3 rounded-full border-gray-400 hover:border-primary hover:bg-primary/5 cursor-pointer transition-all duration-300 ease-in-out font-semibold">
+            <form onSubmit={handleRegister} className="flex flex-col">
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="my-10 border-2 flex items-center justify-center gap-3 px-6 py-3 rounded-full border-gray-400 cursor-pointer hover:border-primary hover:bg-primary/5  transition-all duration-300 ease-in-out font-semibold active:scale-95"
+              >
                 <FcGoogle size={24} />
                 <span>Continue with Google</span>
               </button>
 
-              
               <div className="flex items-center gap-5 mb-10 opacity-60">
                 <div className="border-t border-gray-400 flex-1"></div>
                 <p>OR</p>
@@ -42,6 +100,8 @@ const Register = () => {
               {/* Name  */}
               <label className="mb-1 font-semibold opacity-80">Name</label>
               <input
+                required
+                name="name"
                 type="text"
                 placeholder="Your Name"
                 className="px-4 py-2 mb-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
@@ -49,6 +109,8 @@ const Register = () => {
               {/* Email  */}
               <label className="mb-1 font-semibold opacity-80">Email</label>
               <input
+                required
+                name="email"
                 type="email"
                 placeholder="Your Email"
                 className="px-4 py-2 mb-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
@@ -56,6 +118,7 @@ const Register = () => {
               {/* PhotoUrl  */}
               <label className="mb-1 font-semibold opacity-80">Photo URL</label>
               <input
+                name="photo"
                 type="text"
                 placeholder="Your photo URL"
                 className="px-4 py-2 mb-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
@@ -64,10 +127,13 @@ const Register = () => {
               <label className="mb-1 font-semibold opacity-80">Password</label>
               <div className="relative">
                 <input
+                  required
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className="w-full px-4 py-2 mb-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className={`w-full px-4 py-2 border  rounded-lg focus:outline-none focus:ring-2 focus:ring-primary ${passError ? "border-red-500" : "border-gray-300"}`}
                 />
+
                 <button
                   onClick={() => {
                     setShowPassword(!showPassword);
@@ -78,7 +144,15 @@ const Register = () => {
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
-              <div className="flex flex-col md:flex-row justify-between items-start md:gap-3">
+              {passError && (
+                <p className="mt-2 text-red-500 font-semibold">{passError}</p>
+              )}
+              {firebaseError && (
+                <p className="mt-2 text-red-500 font-semibold">
+                  {firebaseError}
+                </p>
+              )}
+              <div className="flex flex-col md:flex-row justify-between items-start md:gap-3 mt-2">
                 <ul className="list-disc list-inside ml-4 ">
                   <li>1 lowercase character</li>
                   <li>1 uppercase character</li>
