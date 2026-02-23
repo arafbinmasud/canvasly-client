@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import PublicRoute from "./PublicRoute";
+import ErrorPage404 from "../pages/ErrorPage404";
 
 const router = createBrowserRouter([
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
                 element: <PublicRoute><Login></Login></PublicRoute>
             }
         ]
+    },
+    {
+        path: "*",
+        element: <ErrorPage404></ErrorPage404>
     }
 
 ])
