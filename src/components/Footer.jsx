@@ -6,7 +6,7 @@ import { IoIosMail } from "react-icons/io";
 const Footer = () => {
   return (
     <footer className="bg-base-200 text-white font-text">
-      <div className=" max-w-350 mx-auto py-8 px-2 md:px-0">
+      <div className=" max-w-350 mx-auto py-8 px-4 md:px-2">
         <p className="text-center text-3xl font-bold font-heading cursor-pointer mb-2">
           Can<span className="text-primary">vas</span>Ly
         </p>

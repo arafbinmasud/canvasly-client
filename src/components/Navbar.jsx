@@ -52,8 +52,8 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-base-100 border-b border-primary/50 sticky top-0 z-10 shadow-md">
-      <nav className="flex items-center justify-between max-w-350 mx-auto py-2 px-2">
+    <header className="bg-base-100 border-b border-primary/50 sticky top-0 z-100 shadow-md">
+      <nav className="flex items-center justify-between max-w-350 mx-auto py-2 px-4 md:px-2">
         <div className=" left flex items-center">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">

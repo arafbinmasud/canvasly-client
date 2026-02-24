@@ -72,7 +72,7 @@ const Register = () => {
 
   return (
     <section className="my-5 w-full max-w-350 mx-auto font-text">
-      <div className="flex flex-col md:flex-row md:gap-15 md:py-20 px-2 ">
+      <div className="flex flex-col md:flex-row md:gap-15 md:py-20  px-4 md:px-2 ">
         <div className="left">
           <p className="text-center md:text-right text-lg font-medium mb-8 md:mb-10">
             Already have an account? &nbsp;
@@ -82,9 +82,9 @@ const Register = () => {
           </p>
 
           <div className="form-body">
-            <h2 className="text-3xl text-center md:text-4xl font-heading font-bold mb-2">
+            <h1 className="text-3xl text-center md:text-4xl font-heading font-bold mb-2">
               Start your artistic journey with Canvasly today
-            </h2>
+            </h1>
             <p className="text-lg opacity-60 text-center font-medium">
               Community of dreamers and creators
             </p>

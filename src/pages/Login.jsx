@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <section className="flex flex-col md:flex-row">
       <div className="left md:w-1/2 flex justify-end items-center py-5">
-        <div className="max-w-175 px-2 md:pr-15 font-text ">
+        <div className="max-w-175  px-4 md:px-2 md:pr-15 font-text ">
           <p className="text-center  md:text-left text-lg font-medium mb-8 md:mb-10">
             New User? No Problem, &nbsp;
             <Link className="text-primary font-bold underline" to="/register">
