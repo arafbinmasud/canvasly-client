@@ -33,19 +33,19 @@ const TopArtists = () => {
   ];
 
   return (
-    <section className="my-5 w-full max-w-350 mx-auto font-text">
+    <section className="mt-5 mb-5 md:mb-20 w-full max-w-350 mx-auto font-text">
 
       <div className="container mx-auto w-full px-4 md:px-2">
         
         <div className="top flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0 ">
           <div className="left">
-            <h2 className=" hidden border md:inline-block px-2 rounded-full border-primary text-sm bg-base-200 text-white/80">
+            <h4 className=" hidden border md:inline-block px-2 rounded-full border-primary text-sm bg-base-200 text-white/80">
               TRENDING NOW
-            </h2>
-            <h3 className="text-3xl md:text-5xl text-center md:text-left font-heading font-bold my-5">
+            </h4>
+            <h2 className="text-3xl md:text-5xl text-center md:text-left font-heading font-bold my-5">
               Meet the Visionaries <br />{" "}
               <span className="text-primary">of the</span> Week
-            </h3>
+            </h2>
             <p className=" max-w-175 opacity-60 text-center md:text-left">
               Our gallery is home to thousands of creators, but these few have
               captured the world's eye. See why these artists are the talk of

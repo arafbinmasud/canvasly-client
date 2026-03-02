@@ -35,7 +35,10 @@ const Login = () => {
         console.log(res.user);
         navigate("/");
       })
-      .catch((err) => toast.error(err.message));
+      .catch(err => {
+        toast.error(err.message);
+        setLoading(false);
+      })
   };
   return (
     <section className="flex flex-col md:flex-row">
