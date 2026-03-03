@@ -35,3 +35,11 @@
   --color-primary: #ff9b51;
   --color-secondary: #bfc9d1;
 }
+
+
+@media (max-width: 768px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+}

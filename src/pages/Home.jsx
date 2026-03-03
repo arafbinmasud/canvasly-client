@@ -1,21 +1,15 @@
-import CommunityHighlights from "../components/home-page/CommunityHighlights"
-import TopArtists from "../components/home-page/TopArtists"
-
-
+import CommunityHighlights from "../components/home-page/CommunityHighlights";
+import Hero from "../components/home-page/Hero";
+import TopArtists from "../components/home-page/TopArtists";
 
 const Home = () => {
-  
-  
-  
-
   return (
     <>
-       <TopArtists/>
-       <CommunityHighlights/>
-        
-        
+      <Hero />
+      <TopArtists />
+      <CommunityHighlights />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
