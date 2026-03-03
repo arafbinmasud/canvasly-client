@@ -36,6 +36,10 @@
   --color-secondary: #bfc9d1;
 }
 
+a.active {
+  font-weight: 700;
+  color: #ff9b51;
+}
 
 @media (max-width: 768px) {
   .swiper-button-next,
@@ -43,3 +47,4 @@
     display: none !important;
   }
 }
+
