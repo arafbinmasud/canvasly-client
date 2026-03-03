@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import photo_login from "../assets/login-photo1.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
@@ -9,19 +9,14 @@ import { toast } from "react-toastify";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser, createUserWithGoogle, setLoading } = useAuth();
-  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    
 
     loginUser(email, password)
-      .then((res) => {
-        console.log(res.user);
-        navigate("/");
-      })
+      .then(() => {})
       .catch((err) => {
         toast.error(err.message);
         setLoading(false);
@@ -31,14 +26,11 @@ const Login = () => {
   const handleGoogleLogin = () => {
     console.log("clicked");
     createUserWithGoogle()
-      .then((res) => {
-        console.log(res.user);
-        navigate("/");
-      })
-      .catch(err => {
+      .then(() => {})
+      .catch((err) => {
         toast.error(err.message);
         setLoading(false);
-      })
+      });
   };
   return (
     <section className="flex flex-col md:flex-row">

@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { FaMoon } from "react-icons/fa";
 import { IoSunny } from "react-icons/io5";
-import {  NavLink } from "react-router";
+import { NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
 import ProfileDropdown from "./ProfileDropdown";
 import NavButtons from "./NavButtons";
 
-
-
 const Navbar = () => {
   const { user, loading } = useAuth();
-  
-  
-  
+
   const links = (
     <>
       <li>
@@ -21,9 +17,13 @@ const Navbar = () => {
       <li>
         <a>Explore Artworks</a>
       </li>
-      <li>
-        <a>Add Artwork</a>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/add-artworks">Add Artwork</NavLink>
+          </li>
+        </>
+      )}
       <li>
         <a>My Gallery</a>
       </li>
@@ -101,10 +101,9 @@ const Navbar = () => {
           {loading ? (
             <span className="loading bg-primary loading-spinner loading-md"></span>
           ) : user ? (
-            
-              <ProfileDropdown/>
+            <ProfileDropdown />
           ) : (
-            <NavButtons/>
+            <NavButtons />
           )}
         </div>
       </nav>
