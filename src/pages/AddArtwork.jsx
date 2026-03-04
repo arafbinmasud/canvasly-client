@@ -3,7 +3,9 @@ import useAuth from "../hooks/useAuth";
 
 const AddArtwork = () => {
   const { user } = useAuth();
-  const { displayName, email } = user;
+  const { displayName, email, accessToken } = user;
+  
+  
   
   const handleAddArtwork = (e) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ const AddArtwork = () => {
       dimensions: form.dimensions.value || "N/A",
       price: parseFloat(form.price.value) || 0,
       visibility: form.visibility.value, 
+      likes: 0,
       user_name: displayName,
       user_email: email,
       created_at: new Date(),
@@ -27,7 +30,8 @@ const AddArtwork = () => {
     fetch("http://localhost:5000/artworks", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${accessToken}`
         },
         body: JSON.stringify(artworkData)
     })
@@ -90,8 +94,8 @@ const AddArtwork = () => {
               required
               className="w-full px-4 py-2 mb-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              <option value="Public">Public</option>
-              <option value="Private">Private</option>
+              <option className="bg-base-100" value="Public">Public</option>
+              <option className="bg-base-100" value="Private">Private</option>
             </select>
 
             {/* User Name */}
@@ -111,15 +115,16 @@ const AddArtwork = () => {
             <select
               name="category"
               required
+              defaultValue=""
               className="w-full px-4 py-2 mb-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             >
-              <option disabled selected>
+              <option value="" disabled>
                 Select Category
               </option>
-              <option value="Cyberpunk">Cyberpunk</option>
-              <option value="Landscape">Landscape</option>
-              <option value="Abstract">Abstract</option>
-              <option value="Character Art">Character Art</option>
+              <option className="bg-base-100" value="Cyberpunk">Cyberpunk</option>
+              <option className="bg-base-100" value="Landscape">Landscape</option>
+              <option className="bg-base-100" value="Abstract">Abstract</option>
+              <option className="bg-base-100" value="Character Art">Character Art</option>
             </select>
 
             {/* price */}

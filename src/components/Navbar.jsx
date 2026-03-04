@@ -15,7 +15,7 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <a>Explore Artworks</a>
+        <NavLink to="/explore-artworks">Explore Artworks</NavLink>
       </li>
       {user && (
         <>
