@@ -8,6 +8,7 @@ import ErrorPage404 from "../pages/ErrorPage404";
 import AddArtwork from "../pages/AddArtwork";
 import PrivateRoute from "./PrivateRoute";
 import ExploreArtworks from "../pages/ExploreArtworks";
+import ArtDetails from "../pages/ArtDetails";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/explore-artworks",
         element: <ExploreArtworks/>
+      },
+      {
+        path: "/artwork/:id",
+        element:<PrivateRoute><ArtDetails/></PrivateRoute>
       }
     ],
   },

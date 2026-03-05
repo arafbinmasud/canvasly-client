@@ -4,11 +4,10 @@ import useAuth from "../hooks/useAuth";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
-    console.log(location);
-    
+
   if (loading) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className="flex min-h-screen flex-col items-center justify-center text-primary">
         <span className="loading loading-spinner loading-xl"></span>
       </div>
     );
@@ -17,6 +16,6 @@ const PrivateRoute = ({ children }) => {
     return children;
   }
 
-  return <Navigate to="/login" state={location.pathname}></Navigate>
+  return <Navigate to="/login" state={location.pathname}></Navigate>;
 };
 export default PrivateRoute;
