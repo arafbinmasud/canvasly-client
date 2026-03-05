@@ -22,11 +22,12 @@ const Navbar = () => {
           <li>
             <NavLink to="/add-artworks">Add Artwork</NavLink>
           </li>
+          <li>
+            <NavLink to="/my-gallery">My Gallery</NavLink>
+          </li>
         </>
       )}
-      <li>
-        <a>My Gallery</a>
-      </li>
+     
       <li>
         <a>My Favorites</a>
       </li>

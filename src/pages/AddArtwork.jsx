@@ -39,12 +39,12 @@ const AddArtwork = () => {
       .then((data) => {
         if (data.insertedId) {
           toast.success("ArtWork added Successfully!");
-          // form.reset();
+          form.reset();
         }
       });
   };
 
-  return (
+  return ( 
     <section className="my-5 w-full max-w-350 mx-auto font-text px-4 md:px-2">
       <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-center">
         Add New <span className="text-primary">Art</span>work

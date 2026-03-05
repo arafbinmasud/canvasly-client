@@ -9,6 +9,7 @@ import AddArtwork from "../pages/AddArtwork";
 import PrivateRoute from "./PrivateRoute";
 import ExploreArtworks from "../pages/ExploreArtworks";
 import ArtDetails from "../pages/ArtDetails";
+import MyGallery from "../pages/MyGallery";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/artwork/:id",
         element:<PrivateRoute><ArtDetails/></PrivateRoute>
+      },
+      {
+        path: "/my-gallery",
+        element: <PrivateRoute><MyGallery/></PrivateRoute>
       }
     ],
   },
