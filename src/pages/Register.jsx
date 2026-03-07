@@ -10,9 +10,9 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passError, setPassError] = useState("");
   const [firebaseError, setFirebaseError] = useState("");
-  const { createUser, updateUser, createUserWithGoogle, setLoading } = useAuth();
+  const { createUser, updateUser, createUserWithGoogle, setLoading } =
+    useAuth();
   const navigate = useNavigate();
-  
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -38,6 +38,7 @@ const Register = () => {
       .then(() => {
         updateUser(userInfo)
           .then(() => {
+            saveUserToDB(name, email, photo)
             toast.success(
               "Masterpiece account created! Welcome aboard, Artist. ✨",
             );
@@ -51,14 +52,15 @@ const Register = () => {
       })
       .catch((err) => {
         setFirebaseError(err.message);
-        setLoading(false)
+        setLoading(false);
       });
   };
 
   const handleGoogleLogin = () => {
     setFirebaseError("");
     createUserWithGoogle()
-      .then(() => {
+      .then((res) => {
+        saveUserToDB(res.user);
         toast.success(
           "Masterpiece account created! Welcome aboard, Artist. ✨",
         );
@@ -66,10 +68,28 @@ const Register = () => {
       })
       .catch((err) => {
         setFirebaseError(err.message);
-        setLoading(false)
+        setLoading(false);
       });
   };
 
+  const saveUserToDB = (name, email, photo) => {
+    const currentUser = {
+      name, email, photo
+    };
+    console.log(currentUser);
+
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(currentUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
   return (
     <section className="my-5 w-full max-w-350 mx-auto font-text">
       <div className="flex flex-col md:flex-row md:gap-15 md:py-20  px-4 md:px-2 ">

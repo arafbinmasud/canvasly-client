@@ -24,14 +24,41 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    console.log("clicked");
     createUserWithGoogle()
-      .then(() => {})
+      .then((res) => {
+        saveUserToDB(res.user);
+        
+      })
       .catch((err) => {
         toast.error(err.message);
         setLoading(false);
       });
   };
+
+  const saveUserToDB = (user) => {
+    const currentUser = {
+      name: user.displayName,
+      email: user.email,
+      photo: user.photoURL
+    }
+    console.log(currentUser);
+    
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(currentUser)
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+      
+    })
+    
+    
+  }
+
   return (
     <section className="flex flex-col md:flex-row">
       <div className="left md:w-1/2 flex justify-end items-center py-5">
