@@ -23,12 +23,12 @@ const ArtDetails = () => {
   } = artwork;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/artwork/${id}` , {
+    fetch(`http://localhost:5000/artwork/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${user.accessToken}`
-      }
+        Authorization: `Bearer ${user.accessToken}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -65,14 +65,13 @@ const ArtDetails = () => {
   };
 
   const handleAddToFavorites = () => {
-    const { _id, ...otherKeys } = artwork;
+    const { _id } = artwork;
     const favoriteData = {
-      ...otherKeys,
       artwork_id: _id,
       user_email: user.email,
       added_at: new Date(),
     };
-   
+
     fetch("http://localhost:5000/favorites", {
       method: "POST",
       headers: {
@@ -83,11 +82,10 @@ const ArtDetails = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data.insertedId) {
-          toast.success("Successfully Added to Favorites!")
-        }
-        else if (data.message === "Already in favorites") {
-          toast.error("Art is Already in Favorites")
+        if (data.insertedId) {
+          toast.success("Successfully Added to Favorites!");
+        } else if (data.message === "Already in favorites") {
+          toast.error("Art is Already in Favorites");
         }
       });
   };

@@ -25,18 +25,11 @@ const Navbar = () => {
           <li>
             <NavLink to="/my-gallery">My Gallery</NavLink>
           </li>
+          <li>
+            <NavLink to="/my-favorites">My Favorites</NavLink>
+          </li>
         </>
       )}
-     
-      <li>
-        <a>My Favorites</a>
-      </li>
-      <li>
-        <a>My Favorites</a>
-      </li>
-      <li>
-        <a>My Favorites</a>
-      </li>
     </>
   );
 
