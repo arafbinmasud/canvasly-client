@@ -11,6 +11,7 @@ import ExploreArtworks from "../pages/ExploreArtworks";
 import ArtDetails from "../pages/ArtDetails";
 import MyGallery from "../pages/MyGallery";
 import MyFavorites from "../pages/MyFavorites";
+import MyProfile from "../pages/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "/explore-artworks",
+        element: <ExploreArtworks/>
       },
       {
         path: "/register",
@@ -46,6 +51,10 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/my-gallery",
+        element: <PrivateRoute><MyGallery/></PrivateRoute>
+      },
+      {
         path: "/my-favorites",
         element: (
           <PrivateRoute>
@@ -54,17 +63,19 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/explore-artworks",
-        element: <ExploreArtworks/>
+        path: "/my-profile",
+        element: (
+          <PrivateRoute>
+            <MyProfile />
+          </PrivateRoute>
+        ),
       },
+      
       {
         path: "/artwork/:id",
         element:<PrivateRoute><ArtDetails/></PrivateRoute>
       },
-      {
-        path: "/my-gallery",
-        element: <PrivateRoute><MyGallery/></PrivateRoute>
-      }
+      
     ],
   },
   {
