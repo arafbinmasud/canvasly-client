@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    setIsProcessing(true)
+    setIsProcessing(true);
     loginUser(email, password)
       .then(() => {})
       .catch((err) => {
@@ -25,11 +25,10 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    setIsProcessing(true)
+    setIsProcessing(true);
     createUserWithGoogle()
       .then((res) => {
         saveUserToDB(res.user);
-        
       })
       .catch((err) => {
         toast.error(err.message);
@@ -41,25 +40,22 @@ const Login = () => {
     const currentUser = {
       name: user.displayName,
       email: user.email,
-      photo: user.photoURL
-    }
-    console.log(currentUser);
+      photo: user.photoURL,
+    };
     
-    fetch("http://localhost:5000/users", {
+
+    fetch("https://canvasly-server.vercel.app/users", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(currentUser)
+      body: JSON.stringify(currentUser),
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      
-    })
-    
-    
-  }
+      .then((res) => res.json())
+      .then(() => {
+     
+      });
+  };
 
   return (
     <section className="flex flex-col md:flex-row">
@@ -87,7 +83,7 @@ const Login = () => {
                 onClick={handleGoogleLogin}
                 className="my-10 border-2 flex items-center justify-center gap-3 px-6 py-3 rounded-full border-gray-400 hover:border-primary hover:bg-primary/5 cursor-pointer transition-all duration-300 ease-in-out font-semibold active:scale-95"
               >
-                 {isProcessing ? (
+                {isProcessing ? (
                   <span className="loading loading-spinner text-primary"></span>
                 ) : (
                   <>
@@ -132,12 +128,14 @@ const Login = () => {
                 </button>
               </div>
 
-              <button disabled={isProcessing} className="btn btn-primary text-accent rounded-full mt-5 h-12">
-                 {isProcessing ? (
+              <button
+                disabled={isProcessing}
+                className="btn btn-primary text-accent rounded-full mt-5 h-12"
+              >
+                {isProcessing ? (
                   <span className="loading loading-spinner"></span>
                 ) : (
                   <>
-                   
                     <span>Login Now</span>
                   </>
                 )}

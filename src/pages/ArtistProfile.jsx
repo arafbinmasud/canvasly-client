@@ -22,7 +22,7 @@ const ArtistProfile = () => {
       }
     };
     fetch(
-      `http://localhost:5000/artist-works?artist_email=${email}&user_email=${user?.email}`,
+      `https://canvasly-server.vercel.app/artist-works?artist_email=${email}&user_email=${user?.email}`,
       {
         headers: {
           Authorization: `Bearer ${user?.accessToken}`,
@@ -35,14 +35,14 @@ const ArtistProfile = () => {
         checkLoading();
       });
 
-    fetch(`http://localhost:5000/followers?artist_email=${email}`)
+    fetch(`https://canvasly-server.vercel.app/followers?artist_email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         setFollowers(data);
         checkLoading();
       });
 
-    fetch(`http://localhost:5000/artists/${email}`)
+    fetch(`https://canvasly-server.vercel.app/artists/${email}`)
       .then((res) => res.json())
       .then((data) => {
         setArtist(data);
@@ -74,7 +74,6 @@ const ArtistProfile = () => {
         <h1 className="text-3xl md:text-4xl font-heading font-bold">
           {artist?.name}
         </h1>
-        <p className="text-sm opacity-60 mt-1">{email}</p>
 
         <div className=" flex justify-center gap-8 my-6">
           <div className="text-center">

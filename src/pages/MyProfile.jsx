@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import userLogo from "../assets/user.png";
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 const MyProfile = () => {
@@ -12,11 +12,11 @@ const MyProfile = () => {
   const [bioText, setBioText] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/artworks-count/${user.email}`)
+    fetch(`https://canvasly-server.vercel.app/artworks-count/${user.email}`)
       .then((res) => res.json())
       .then((data) => setArtCount(data));
 
-    fetch(`http://localhost:5000/users/${user.email}`, {
+    fetch(`https://canvasly-server.vercel.app/users/${user.email}`, {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
@@ -31,9 +31,9 @@ const MyProfile = () => {
 
   const handleBioUpdate = (e) => {
     e.preventDefault();
-    console.log(bioText);
+   
 
-    fetch("http://localhost:5000/users/update-bio", {
+    fetch("https://canvasly-server.vercel.app/users/update-bio", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const MyProfile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        
 
         if (data.modifiedCount) {
           setDbUser({ ...dbUser, bio: bioText });

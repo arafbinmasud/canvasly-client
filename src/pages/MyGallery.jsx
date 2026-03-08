@@ -11,11 +11,14 @@ const MyGallery = () => {
   const [selectedArt, setSelectedArt] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/my-artworks?email=${user.email}`, {
-      headers: {
-        Authorization: `Bearer ${user.accessToken}`,
+    fetch(
+      `https://canvasly-server.vercel.app/my-artworks?email=${user.email}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       },
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
         setMyArtworks(data);
@@ -34,7 +37,7 @@ const MyGallery = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/all-artworks/${id}`, {
+        fetch(`https://canvasly-server.vercel.app/all-artworks/${id}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
@@ -76,7 +79,7 @@ const MyGallery = () => {
       visibility: form.visibility.value,
     };
 
-    fetch(`http://localhost:5000/update-art/${selectedArt._id}`, {
+    fetch(`https://canvasly-server.vercel.app/update-art/${selectedArt._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +89,6 @@ const MyGallery = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.modifiedCount) {
           toast.success("Art updated successfully!");
           setMyArtworks((prevArtworks) =>
@@ -94,12 +96,12 @@ const MyGallery = () => {
               art._id === selectedArt._id ? { ...art, ...updatedArt } : art,
             ),
           );
-          setSelectedArt(null)
+          setSelectedArt(null);
           document.getElementById("my_modal_5").close();
         }
-        if(data.modifiedCount===0) {
-            toast.info('Updated With No Change!')
-            document.getElementById("my_modal_5").close();
+        if (data.modifiedCount === 0) {
+          toast.info("Updated With No Change!");
+          document.getElementById("my_modal_5").close();
         }
       });
   };
@@ -112,12 +114,16 @@ const MyGallery = () => {
     );
   }
 
-  if(myArtworks.length===0) {
-    return <div className=" min-h-100 mx-auto text-3xl mt-10 capitalize text-center" >
-        <p >No Artwork to show!  Please Add your first art </p>
-        <Link className="btn btn-primary mt-5" to="/add-artworks"> Add Artwork </Link>
-    </div>
-    
+  if (myArtworks.length === 0) {
+    return (
+      <div className=" min-h-100 mx-auto text-3xl mt-10 capitalize text-center">
+        <p>No Artwork to show! Please Add your first art </p>
+        <Link className="btn btn-primary mt-5" to="/add-artworks">
+          {" "}
+          Add Artwork{" "}
+        </Link>
+      </div>
+    );
   }
 
   return (

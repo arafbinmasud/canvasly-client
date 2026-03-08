@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 const AddArtwork = () => {
   const { user } = useAuth();
   const { displayName, email, accessToken, photoURL } = user;
-  console.log(user);
+
 
   const handleAddArtwork = (e) => {
     e.preventDefault();
@@ -25,9 +25,9 @@ const AddArtwork = () => {
       artist_photo: photoURL,
       created_at: new Date(),
     };
-    console.log(artworkData);
+  
 
-    fetch("http://localhost:5000/artworks", {
+    fetch("https://canvasly-server.vercel.app/artworks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const AddArtwork = () => {
       });
   };
 
-  return ( 
+  return (
     <section className="my-5 w-full max-w-350 mx-auto font-text px-4 md:px-2">
       <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-center">
         Add New <span className="text-primary">Art</span>work

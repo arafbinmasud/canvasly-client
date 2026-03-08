@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import ArtCard from "../components/ArtCard";
- 
 
 const ExploreArtworks = () => {
   const categories = [
@@ -17,34 +16,34 @@ const ExploreArtworks = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://localhost:5000/all-artworks?category=${activeCategory}&search=${search}`)
-    .then(res => res.json())
-    .then(data => {
+    fetch(
+      `https://canvasly-server.vercel.app/all-artworks?category=${activeCategory}&search=${search}`,
+    )
+      .then((res) => res.json())
+      .then((data) => {
         setArtworks(data);
-        setIsLoading(false)
-        
-    })
-  }, [activeCategory, search])
+        setIsLoading(false);
+      });
+  }, [activeCategory, search]);
 
   const handleSearch = (e) => {
     e.preventDefault();
     const searchText = e.target.search.value.trim();
     setSearch(searchText);
-    
-    
-  }
+  };
   const handleInputChange = (e) => {
     const value = e.target.value;
-    if(value === "") {
-        setSearch("")
+    if (value === "") {
+      setSearch("");
     }
-  }
+  };
 
   return (
     <section className="my-5 w-full max-w-350 mx-auto font-text px-4 md:px-2 ">
-        <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-center uppercase">
-        Explore <span className="text-primary">Art</span>works</h1>
-        {/* search div  */}
+      <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-center uppercase">
+        Explore <span className="text-primary">Art</span>works
+      </h1>
+      {/* search div  */}
       <div className="max-w-3xl mx-auto">
         <form onSubmit={handleSearch} className="w-full">
           <div className="flex w-full border border-gray-300 rounded-lg overflow-hidden focus-within:ring-1 focus-within:ring-primary focus-within:border-primary transition-all">
@@ -63,7 +62,7 @@ const ExploreArtworks = () => {
         </form>
       </div>
 
-        {/* tabs div  */}
+      {/* tabs div  */}
       <div className="my-5 flex flex-wrap justify-center items-center gap-3 md:gap-5 ">
         {categories.map((cat, i) => (
           <button
@@ -84,17 +83,23 @@ const ExploreArtworks = () => {
       </div>
 
       {/* arts div  */}
-      {isLoading? <div className="flex flex-col min-h-60 items-center justify-center text-primary">
-        <span className="loading loading-spinner loading-xl"></span>
-      </div> : <div className="mt-10">
-        <p className="my-3 tracking-wide font-medium">Total <span className="text-primary">{artworks.length}</span> Artworks Found</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-
-        {
-            artworks.map(art => <ArtCard key={art._id} art={art} />)
-        }
-      </div>
-      </div>}
+      {isLoading ? (
+        <div className="flex flex-col min-h-60 items-center justify-center text-primary">
+          <span className="loading loading-spinner loading-xl"></span>
+        </div>
+      ) : (
+        <div className="mt-10">
+          <p className="my-3 tracking-wide font-medium">
+            Total <span className="text-primary">{artworks.length}</span>{" "}
+            Artworks Found
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {artworks.map((art) => (
+              <ArtCard key={art._id} art={art} />
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 };

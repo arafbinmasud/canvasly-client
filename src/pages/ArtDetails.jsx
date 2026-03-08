@@ -24,7 +24,7 @@ const ArtDetails = () => {
   } = artwork;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/artwork/${id}`, {
+    fetch(`https://canvasly-server.vercel.app/artwork/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -39,14 +39,14 @@ const ArtDetails = () => {
 
   useEffect(() => {
     if (artist_email) {
-      fetch(`http://localhost:5000/artworks-count/${artist_email}`)
+      fetch(`https://canvasly-server.vercel.app/artworks-count/${artist_email}`)
         .then((res) => res.json())
         .then((data) => {
           setArtCount(data);
         });
 
       fetch(
-        `http://localhost:5000/is-following?artist_email=${artist_email}&follower_email=${user.email}`,
+        `https://canvasly-server.vercel.app/is-following?artist_email=${artist_email}&follower_email=${user.email}`,
       )
         .then((res) => res.json())
         .then((data) => {
@@ -55,10 +55,9 @@ const ArtDetails = () => {
         });
     }
   }, [artist_email, user]);
-  
 
   const handleLikeCount = () => {
-    fetch(`http://localhost:5000/likes-count/${id}`, {
+    fetch(`https://canvasly-server.vercel.app/likes-count/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -82,7 +81,7 @@ const ArtDetails = () => {
       added_at: new Date(),
     };
 
-    fetch("http://localhost:5000/favorites", {
+    fetch("https://canvasly-server.vercel.app/favorites", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -101,7 +100,7 @@ const ArtDetails = () => {
   };
 
   const handleFollow = () => {
-    fetch("http://localhost:5000/follow-toggle", {
+    fetch("https://canvasly-server.vercel.app/follow-toggle", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

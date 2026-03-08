@@ -6,7 +6,7 @@ const FeaturedArts = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/featured-artworks")
+    fetch("https://canvasly-server.vercel.app/featured-artworks")
       .then((res) => res.json())
       .then((data) => {
         setArtworks(data);
@@ -14,7 +14,7 @@ const FeaturedArts = () => {
       });
   }, []);
 
-  console.log(artworks);
+  
   if (isLoading) {
     return (
       <div className="flex flex-col min-h-60 items-center justify-center text-primary">

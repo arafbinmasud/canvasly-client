@@ -19,9 +19,8 @@ const Register = () => {
       email,
       photo,
     };
-    console.log(currentUser);
 
-    fetch("http://localhost:5000/users", {
+    fetch("https://canvasly-server.vercel.app/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,9 +28,7 @@ const Register = () => {
       body: JSON.stringify(currentUser),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+      .then(() => {});
   };
 
   const handleRegister = (e) => {
@@ -71,8 +68,6 @@ const Register = () => {
           });
       })
       .catch((err) => {
-        console.log(err);
-
         toast.warn(err.message);
         setIsProcessing(false);
       });

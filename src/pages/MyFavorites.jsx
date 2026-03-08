@@ -9,22 +9,23 @@ const MyFavorites = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/my-favorites?email=${user.email}`, {
-      headers: {
-        Authorization: `Bearer ${user.accessToken}`,
+    fetch(
+      `https://canvasly-server.vercel.app/my-favorites?email=${user.email}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       },
-    })
+    )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setMyFavorites(data);
         setIsLoading(false);
       });
   }, [user]);
 
   const handleDelete = (id) => {
-    console.log("ei lo id", id);
-
+    
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -35,7 +36,7 @@ const MyFavorites = () => {
       confirmButtonText: "Yes, Remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/favorites/${id}`, {
+        fetch(`https://canvasly-server.vercel.app/favorites/${id}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
@@ -43,7 +44,6 @@ const MyFavorites = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.deletedCount) {
               setMyFavorites((prevFavorites) =>
                 prevFavorites.filter((art) => art._id !== id),
@@ -67,12 +67,17 @@ const MyFavorites = () => {
     );
   }
 
-    if(myFavorites.length===0) {
-    return <div className=" min-h-100 mx-auto text-3xl mt-10 font-text text-center" >
-        <p className="px-1" >No favorite artwork yet. Add your first one </p>
-        <Link className="btn btn-primary mt-5" to="/explore-artworks"> Explore ArtWorks </Link>
-    </div>
-    }
+  if (myFavorites.length === 0) {
+    return (
+      <div className=" min-h-100 mx-auto text-3xl mt-10 font-text text-center">
+        <p className="px-1">No favorite artwork yet. Add your first one </p>
+        <Link className="btn btn-primary mt-5" to="/explore-artworks">
+          {" "}
+          Explore ArtWorks{" "}
+        </Link>
+      </div>
+    );
+  }
   return (
     <section className="my-5 w-full max-w-350 mx-auto font-text px-4 md:px-2">
       <h1 className="text-3xl md:text-4xl font-heading font-bold mb-6">
