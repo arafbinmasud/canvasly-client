@@ -5,7 +5,7 @@ const PublicRoute = ({ children }) => {
   const location = useLocation();
   const { user, loading } = useAuth();
   if (loading) {
-    return <div className="flex min-h-screen flex-col items-center justify-center"><span className="loading loading-spinner loading-xl"></span></div>;
+    return <div className="flex min-h-screen flex-col items-center justify-center"><span className="loading loading-spinner loading-xl text-primary"></span></div>;
   }
   if (user) {
     return <Navigate to={location.state || "/"} />;

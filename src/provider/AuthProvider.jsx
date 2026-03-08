@@ -17,22 +17,18 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
 
   const createUser = (email, password) => {
-    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const updateUser = (userInfo) => {
-    setLoading(true);
     return updateProfile(auth.currentUser, userInfo);
   };
 
   const createUserWithGoogle = () => {
-    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   const loginUser = (email, password) => {
-    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 

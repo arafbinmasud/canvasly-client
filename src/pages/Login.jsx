@@ -8,22 +8,24 @@ import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { loginUser, createUserWithGoogle, setLoading } = useAuth();
+  const { loginUser, createUserWithGoogle } = useAuth();
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-
+    setIsProcessing(true)
     loginUser(email, password)
       .then(() => {})
       .catch((err) => {
         toast.error(err.message);
-        setLoading(false);
+        setIsProcessing(false);
       });
   };
 
   const handleGoogleLogin = () => {
+    setIsProcessing(true)
     createUserWithGoogle()
       .then((res) => {
         saveUserToDB(res.user);
@@ -31,7 +33,7 @@ const Login = () => {
       })
       .catch((err) => {
         toast.error(err.message);
-        setLoading(false);
+        setIsProcessing(false);
       });
   };
 
@@ -80,12 +82,19 @@ const Login = () => {
 
             <form onSubmit={handleLogin} className="flex flex-col">
               <button
+                disabled={isProcessing}
                 type="button"
                 onClick={handleGoogleLogin}
                 className="my-10 border-2 flex items-center justify-center gap-3 px-6 py-3 rounded-full border-gray-400 hover:border-primary hover:bg-primary/5 cursor-pointer transition-all duration-300 ease-in-out font-semibold active:scale-95"
               >
-                <FcGoogle size={24} />
-                <span>Continue with Google</span>
+                 {isProcessing ? (
+                  <span className="loading loading-spinner text-primary"></span>
+                ) : (
+                  <>
+                    <FcGoogle size={24} />
+                    <span>Continue with Google</span>
+                  </>
+                )}
               </button>
 
               <div className="flex items-center gap-5 mb-10 opacity-60">
@@ -123,8 +132,15 @@ const Login = () => {
                 </button>
               </div>
 
-              <button className="btn btn-primary text-accent rounded-full mt-5 h-12">
-                Login Now
+              <button disabled={isProcessing} className="btn btn-primary text-accent rounded-full mt-5 h-12">
+                 {isProcessing ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  <>
+                   
+                    <span>Login Now</span>
+                  </>
+                )}
               </button>
             </form>
           </div>

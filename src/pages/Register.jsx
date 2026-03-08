@@ -9,10 +9,9 @@ import { toast } from "react-toastify";
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passError, setPassError] = useState("");
-  const [firebaseError, setFirebaseError] = useState("");
-  const { createUser, updateUser, createUserWithGoogle, setLoading } =
-    useAuth();
+  const { createUser, updateUser, createUserWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const saveUserToDB = (name, email, photo) => {
     const currentUser = {
@@ -44,7 +43,6 @@ const Register = () => {
     const userInfo = { displayName: name, photoURL: photo };
 
     setPassError("");
-    setFirebaseError("");
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
@@ -54,6 +52,7 @@ const Register = () => {
       );
       return;
     }
+    setIsProcessing(true);
 
     createUser(email, password)
       .then(() => {
@@ -63,22 +62,24 @@ const Register = () => {
             toast.success(
               "Masterpiece account created! Welcome aboard, Artist. ✨",
             );
-            setLoading(false);
+            setIsProcessing(false);
             navigate("/");
           })
           .catch((err) => {
-            setFirebaseError(err.message);
-            setLoading(false);
+            toast.warn(err.message);
+            setIsProcessing(false);
           });
       })
       .catch((err) => {
-        setFirebaseError(err.message);
-        setLoading(false);
+        console.log(err);
+
+        toast.warn(err.message);
+        setIsProcessing(false);
       });
   };
 
   const handleGoogleLogin = () => {
-    setFirebaseError("");
+    setIsProcessing(true);
     createUserWithGoogle()
       .then((res) => {
         const name = res.user.displayName;
@@ -91,8 +92,8 @@ const Register = () => {
         navigate("/");
       })
       .catch((err) => {
-        setFirebaseError(err.message);
-        setLoading(false);
+        toast.warn(err.message);
+        setIsProcessing(false);
       });
   };
 
@@ -117,12 +118,19 @@ const Register = () => {
 
             <form onSubmit={handleRegister} className="flex flex-col">
               <button
+                disabled={isProcessing}
                 type="button"
                 onClick={handleGoogleLogin}
                 className="my-10 border-2 flex items-center justify-center gap-3 px-6 py-3 rounded-full border-gray-400 cursor-pointer hover:border-primary hover:bg-primary/5  transition-all duration-300 ease-in-out font-semibold active:scale-95"
               >
-                <FcGoogle size={24} />
-                <span>Continue with Google</span>
+                {isProcessing ? (
+                  <span className="loading loading-spinner text-primary"></span>
+                ) : (
+                  <>
+                    <FcGoogle size={24} />
+                    <span>Continue with Google</span>
+                  </>
+                )}
               </button>
 
               <div className="flex items-center gap-5 mb-10 opacity-60">
@@ -181,11 +189,7 @@ const Register = () => {
               {passError && (
                 <p className="mt-2 text-red-500 font-semibold">{passError}</p>
               )}
-              {firebaseError && (
-                <p className="mt-2 text-red-500 font-semibold">
-                  {firebaseError}
-                </p>
-              )}
+
               <div className="flex flex-col md:flex-row justify-between items-start md:gap-3 mt-2">
                 <ul className="list-disc list-inside ml-4 ">
                   <li>1 lowercase character</li>
@@ -197,7 +201,11 @@ const Register = () => {
               </div>
 
               <button className="btn btn-sm md:btn-md btn-primary text-accent rounded-full mt-10">
-                Register Now
+                {isProcessing ? (
+                  <span className="loading loading-spinner text-primary"></span>
+                ) : (
+                  <span>Register Now</span>
+                )}
               </button>
             </form>
           </div>

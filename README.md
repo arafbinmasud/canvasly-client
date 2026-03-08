@@ -1,16 +1,40 @@
-# React + Vite
+🎨 Canvasly – A Creative Artwork Showcase Platform
+Canvasly is a modern, full-stack art-sharing platform where artists can upload, manage, and display their creative works. It provides a seamless experience for art enthusiasts to explore diverse galleries, curate their favorites, and engage with the creative community through a clean and intuitive interface.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🌐 Live Site URL:
 
-Currently, two official plugins are available:
+🚀 Key Features
+Artist Dashboard & CRUD: Logged-in users can easily add, view, update, and delete their own artworks with real-time feedback.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Dynamic Search & Filter: Explore artworks by searching for specific titles or artist names, and filter the collection by categories for better navigation.
 
-## React Compiler
+Interactive Engagement: Users can "Like" artworks (powered by MongoDB $inc) and save pieces to a personalized "My Favorites" list.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Secure Authentication: Robust login and registration system using Firebase, featuring Google Social Login and strict password validation.
 
-## Expanding the ESLint configuration
+Personalized Artist Profiles: Detailed artwork pages displaying artist info, their photo, bio, and total count of published works.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Custom Dark/Light Mode: A theme-toggle system that remembers user preference using localStorage for a comfortable viewing experience.
+
+🛠️ Technologies Used
+Frontend:
+
+React.js (Single Page Application)
+
+Tailwind CSS & DaisyUI (Responsive UI)
+
+Firebase Authentication
+
+React Router (Private & Public Routing)
+
+React Toastify & SweetAlert2 (Custom Notifications)
+
+React Simple Typewriter & React Awesome Reveal (Animations)
+
+Backend:
+
+Node.js & Express.js
+
+MongoDB (Database with Sort, Limit, and Update operators)
+
+Vercel (Server Hosting)
