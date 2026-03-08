@@ -14,6 +14,27 @@ const Register = () => {
     useAuth();
   const navigate = useNavigate();
 
+  const saveUserToDB = (name, email, photo) => {
+    const currentUser = {
+      name,
+      email,
+      photo,
+    };
+    console.log(currentUser);
+
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(currentUser),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -38,7 +59,7 @@ const Register = () => {
       .then(() => {
         updateUser(userInfo)
           .then(() => {
-            saveUserToDB(name, email, photo)
+            saveUserToDB(name, email, photo);
             toast.success(
               "Masterpiece account created! Welcome aboard, Artist. ✨",
             );
@@ -60,7 +81,10 @@ const Register = () => {
     setFirebaseError("");
     createUserWithGoogle()
       .then((res) => {
-        saveUserToDB(res.user);
+        const name = res.user.displayName;
+        const email = res.user.email;
+        const photo = res.user.photoURL;
+        saveUserToDB(name, email, photo);
         toast.success(
           "Masterpiece account created! Welcome aboard, Artist. ✨",
         );
@@ -72,24 +96,6 @@ const Register = () => {
       });
   };
 
-  const saveUserToDB = (name, email, photo) => {
-    const currentUser = {
-      name, email, photo
-    };
-    console.log(currentUser);
-
-    fetch("http://localhost:5000/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(currentUser),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
-  };
   return (
     <section className="my-5 w-full max-w-350 mx-auto font-text">
       <div className="flex flex-col md:flex-row md:gap-15 md:py-20  px-4 md:px-2 ">

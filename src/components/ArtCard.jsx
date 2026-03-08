@@ -2,9 +2,7 @@ import { Link } from "react-router";
 import { FaArrowRight, FaThumbsUp, FaUserAlt } from "react-icons/fa";
 
 const ArtCard = ({ art }) => {
-  const {_id, image_url, title, artist_name, category, likes } = art;
-
-
+  const { _id, image_url, title, artist_name, category, likes } = art;
 
   return (
     <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col font-text">
@@ -28,18 +26,21 @@ const ArtCard = ({ art }) => {
         </h3>
 
         <div className="flex flex-col gap-2 md:gap-0 md:flex-row items-start  md:items-center justify-between text-gray-500 mb-6">
-         <div className="flex items-center gap-2">
-           <FaUserAlt className="text-xs" />
-          <span className="text-sm font-medium">By {artist_name}</span>
-         </div>
-         <div className="flex items-center gap-2">
-          <FaThumbsUp className="text-xs text-primary" />
-          <span className="text-sm font-medium">{likes} Likes</span>
-         </div>
+          <div className="flex items-center gap-2">
+            <FaUserAlt className="text-xs" />
+            <span className="text-sm font-medium">By {artist_name}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <FaThumbsUp className="text-xs text-primary" />
+            <span className="text-sm font-medium">{likes} Likes</span>
+          </div>
         </div>
 
         <div className="mt-auto">
-          <Link to={`/artwork/${_id}`} className="flex items-center justify-center w-full gap-2 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-primary transition-all duration-300 group/btn">
+          <Link
+            to={`/artwork/${_id}`}
+            className="flex items-center justify-center w-full gap-2 bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-primary transition-all duration-300 group/btn"
+          >
             View Details
             <FaArrowRight className="text-sm transition-transform group-hover/btn:translate-x-1" />
           </Link>
