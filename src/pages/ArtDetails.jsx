@@ -1,5 +1,5 @@
 import { FaHeart, FaThumbsUp } from "react-icons/fa";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ const ArtDetails = () => {
   const [artwork, setArtwork] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [artCount, setArtCount] = useState(0);
+  const [isFollowing, setIsFollowing] = useState(false);
   const { user } = useAuth();
 
   const {
@@ -42,10 +43,19 @@ const ArtDetails = () => {
         .then((res) => res.json())
         .then((data) => {
           setArtCount(data);
+        });
+
+      fetch(
+        `http://localhost:5000/is-following?artist_email=${artist_email}&follower_email=${user.email}`,
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setIsFollowing(data);
           setIsLoading(false);
         });
     }
-  }, [artist_email]);
+  }, [artist_email, user]);
+  
 
   const handleLikeCount = () => {
     fetch(`http://localhost:5000/likes-count/${id}`, {
@@ -89,6 +99,27 @@ const ArtDetails = () => {
         }
       });
   };
+
+  const handleFollow = () => {
+    fetch("http://localhost:5000/follow-toggle", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ artist_email, follower_email: user.email }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "followed") {
+          setIsFollowing(true);
+          toast.success(`Following ${artist_name}`);
+        } else {
+          setIsFollowing(false);
+          toast.info(`Unfollowed ${artist_name}`);
+        }
+      });
+  };
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center text-primary">
@@ -110,9 +141,14 @@ const ArtDetails = () => {
           />
         </div>
         <div className="right flex-1">
-          <p className="font-medium text-lg tracking-wider ">
-            {" "}
-            <span className="font-bold">Artist</span> : {artist_name}
+          <p className="font-bold text-lg tracking-wider ">
+            Artist :{" "}
+            <Link
+              to={`/artist-profile/${artist_email}`}
+              className="font-bold hover:underline text-primary"
+            >
+              {artist_name}
+            </Link>
           </p>
           <p className="font-medium opacity-90">
             <span className="font-bold">Total Artworks</span> : {artCount}{" "}
@@ -123,6 +159,16 @@ const ArtDetails = () => {
               src={artist_photo}
               alt="Artist Photo"
             />
+          </div>
+          <div>
+            {artist_email !== user.email && (
+              <button
+                onClick={handleFollow}
+                className={`btn btn-sm my-2 ${isFollowing ? "btn-outline btn-primary" : "btn-primary"}`}
+              >
+                {isFollowing ? "Following" : "Follow"}
+              </button>
+            )}
           </div>
           <p className="font-medium opacity-90">
             <span className="font-bold">Medium</span> : {medium_tools}{" "}

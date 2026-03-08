@@ -12,6 +12,7 @@ import ArtDetails from "../pages/ArtDetails";
 import MyGallery from "../pages/MyGallery";
 import MyFavorites from "../pages/MyFavorites";
 import MyProfile from "../pages/MyProfile";
+import ArtistProfile from "../pages/ArtistProfile";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "/artwork/:id",
         element:<PrivateRoute><ArtDetails/></PrivateRoute>
+      },
+      {
+        path: "/artist-profile/:email",
+        element:<PrivateRoute><ArtistProfile/></PrivateRoute>
       },
       
     ],
