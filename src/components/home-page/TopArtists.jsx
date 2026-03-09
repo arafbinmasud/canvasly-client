@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import artist1 from "../../assets/artist-1.webp";
 import artist2 from "../../assets/artist-2.webp";
 import artist3 from "../../assets/artist-3.webp";
@@ -53,9 +54,9 @@ const TopArtists = () => {
             </p>
           </div>
           <div className="right">
-            <button className="btn btn-sm md:btn-md btn-primary text-accent rounded-full">
+            <Link to="/explore-artworks" className="btn btn-sm md:btn-md btn-primary text-accent rounded-full">
               Explore ArtWorks
-            </button>
+            </Link>
           </div>
         </div>
 
