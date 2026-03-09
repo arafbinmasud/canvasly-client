@@ -195,7 +195,7 @@ const Register = () => {
                 </ul>
               </div>
 
-              <button className="btn btn-sm md:btn-md btn-primary text-accent rounded-full mt-10">
+              <button className="btn btn-primary text-accent rounded-full mt-5 h-12">
                 {isProcessing ? (
                   <span className="loading loading-spinner text-primary"></span>
                 ) : (
